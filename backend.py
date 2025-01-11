@@ -18,7 +18,7 @@ encoders = {
 # Load saved models and scaler
 cluster_model = joblib.load("./content/kmeans_model.joblib")
 scaler = joblib.load("./content/scaler_average_balance.joblib")
-regression_model = joblib.load("./content/xgboost_model_optimized.joblib")
+xgboostmodel = joblib.load("./content/xgboost_model_optimized.joblib")
 
 # Function to safely encode categorical features
 def safe_encode(encoder, value):
@@ -59,7 +59,7 @@ def predict():
     prediction_features = input_df.copy()
 
     # Predict scaled Average Balance
-    scaled_prediction = regression_model.predict(prediction_features)
+    scaled_prediction = xgboostmodel.predict(prediction_features)
 
     # Unscale the predicted value
     unscaled_prediction = float(scaler.inverse_transform(np.array(scaled_prediction).reshape(-1, 1)).flatten()[0])
